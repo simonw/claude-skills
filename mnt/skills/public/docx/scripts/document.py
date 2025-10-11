@@ -833,6 +833,19 @@ class Document:
         self.next_comment_id += 1
         return comment_id
 
+    def suggest_paragraph(self, xml_content: str) -> str:
+        """Transform paragraph XML to add tracked change wrapping for insertion.
+
+        Wraps runs in <w:ins> and adds <w:ins/> to w:rPr in w:pPr for numbered lists.
+
+        Args:
+            xml_content: XML string containing a <w:p> element
+
+        Returns:
+            str: Transformed XML with tracked change wrapping
+        """
+        return DocxXMLEditor.suggest_paragraph(xml_content)
+
     def __del__(self):
         """Clean up temporary directory on deletion."""
         if hasattr(self, "temp_dir") and Path(self.temp_dir).exists():

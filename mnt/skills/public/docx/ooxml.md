@@ -282,23 +282,24 @@ Use the Document class from `scripts/document.py` for all tracked changes and co
 
 ### Initialization
 
-**Find the docx skill root** (directory containing `scripts/` and `ooxml/`):
+**Set PYTHONPATH to the docx skill root:**
+
 ```bash
-# Search for document.py to locate the skill root
-# Note: /mnt/skills is used here as an example; check your context for the actual location
+# Find the docx skill root (directory containing scripts/ and ooxml/)
 find /mnt/skills -name "document.py" -path "*/docx/scripts/*" 2>/dev/null | head -1
-# Example output: /mnt/skills/docx/scripts/document.py
-# Skill root is: /mnt/skills/docx
+# Example output: /mnt/skills/public/docx/scripts/document.py
+# Skill root is: /mnt/skills/public/docx
+
+# Option 1: Export for entire session
+export PYTHONPATH=/mnt/skills/public/docx:$PYTHONPATH
+
+# Option 2: Inline with script execution
+PYTHONPATH=/mnt/skills/public/docx python3 your_script.py
 ```
 
-**Run your script with PYTHONPATH** set to the docx skill root:
-```bash
-PYTHONPATH=/mnt/skills/docx python your_script.py
-```
-
-**In your script**, import from the skill root:
+**In your script**, import normally:
 ```python
-from scripts.document import Document, DocxXMLEditor
+from scripts.document import Document
 
 # Basic initialization (automatically creates temp copy and sets up infrastructure)
 doc = Document('unpacked')
@@ -389,10 +390,10 @@ doc["word/document.xml"].suggest_deletion(para)
 target_para = doc["word/document.xml"].get_node(tag="w:p", contains="existing list item")
 pPr = tags[0].toxml() if (tags := target_para.getElementsByTagName("w:pPr")) else ""
 new_item = f'<w:p>{pPr}<w:r><w:t>New item</w:t></w:r></w:p>'
-tracked_para = DocxXMLEditor.suggest_paragraph(new_item)
+tracked_para = doc.suggest_paragraph(new_item)
 doc["word/document.xml"].insert_after(target_para, tracked_para)
 # Optional: add spacing paragraph before content for better visual separation
-# spacing = DocxXMLEditor.suggest_paragraph('<w:p><w:pPr><w:pStyle w:val="ListParagraph"/></w:pPr></w:p>')
+# spacing = doc.suggest_paragraph('<w:p><w:pPr><w:pStyle w:val="ListParagraph"/></w:pPr></w:p>')
 # doc["word/document.xml"].insert_after(target_para, spacing + tracked_para)
 
 # Add table row with tracked changes (requires 3 levels: row, cell properties, content)

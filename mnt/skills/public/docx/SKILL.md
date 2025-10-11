@@ -1,6 +1,7 @@
 ---
 name: docx
 description: "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (.docx files) for: (1) Creating new documents, (2) Modifying or editing content, (3) Working with tracked changes, (4) Adding comments, or any other document tasks"
+license: Proprietary. LICENSE.txt has complete terms
 ---
 
 # DOCX creation, editing, and analysis
@@ -66,7 +67,7 @@ When editing an existing Word document, use the **Document library** (a Python l
 ### Workflow
 1. **MANDATORY - READ ENTIRE FILE**: Read [`ooxml.md`](ooxml.md) (~600 lines) completely from start to finish. **NEVER set any range limits when reading this file.** Read the full file content for the Document library API and XML patterns for directly editing document files.
 2. Unpack the document: `python ooxml/scripts/unpack.py <office_file> <output_directory>`
-3. Create and run a Python script using the Document library (see "Document Library" section in ooxml.md)
+3. Create and run a Python script using the Document library (set PYTHONPATH per "Initialization" section in ooxml.md)
 4. Pack the final document: `python ooxml/scripts/pack.py <input_directory> <office_file>`
 
 The Document library provides both high-level methods for common operations and direct DOM access for complex scenarios.
@@ -112,7 +113,7 @@ Example - Changing "30 days" to "60 days" in a sentence:
    - Sequential: "Batch 1: Pages 1-3", "Batch 2: Pages 4-6"
 
 3. **Read documentation and unpack**:
-   - **MANDATORY - READ ENTIRE FILE**: Read [`ooxml.md`](ooxml.md) (~600 lines) completely from start to finish. **NEVER set any range limits when reading this file.** Pay special attention to the "Document Library" and "Tracked Change Patterns" sections.
+   - **MANDATORY - READ ENTIRE FILE**: Read [`ooxml.md`](ooxml.md) (~600 lines) completely from start to finish. **NEVER set any range limits when reading this file.** Read the full file content for the Document library API and XML patterns for directly editing document files.
    - **Unpack the document**: `python ooxml/scripts/unpack.py <file.docx> <dir>`
    - **Note the suggested RSID**: The unpack script will suggest an RSID to use for your tracked changes. Copy this RSID for use in step 4b.
 
@@ -130,7 +131,7 @@ Example - Changing "30 days" to "60 days" in a sentence:
 
    **a. Map text to XML**: Grep for text in `word/document.xml` to verify how text is split across `<w:r>` elements.
 
-   **b. Create and run script**: Use `get_node` to find nodes, implement changes, then `doc.save()`. See **"Document Library"** section in ooxml.md for patterns.
+   **b. Create and run script**: Set PYTHONPATH and import Document library (see "Initialization" in ooxml.md), then use `get_node` to find nodes, implement changes, and `doc.save()`. See **"Document Library"** section in ooxml.md for patterns.
 
    **Note**: Always grep `word/document.xml` immediately before writing a script to get current line numbers and verify text content. Line numbers change after each script run.
 
