@@ -1,5 +1,7 @@
 # claude-skills
 
+See [my blog post](https://simonwillison.net/2025/Oct/10/claude-skills/) for background on this project.
+
 Created by prompting [Claude.ai](https://claude.ai):
 
 > `Create a zip file of everything in your /mnt/skills folder`
