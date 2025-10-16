@@ -2,6 +2,16 @@
 
 See [my blog post](https://simonwillison.net/2025/Oct/10/claude-skills/) for background on this project.
 
+Anthropic now have an official repository for Claude skills here:
+
+https://github.com/anthropics/skills
+
+The files that were previously archived in this repository are now officially maintained at:
+
+https://github.com/anthropics/skills/tree/main/document-skills
+
+## Creating a skills archive with a prompt
+
 Created by prompting [Claude.ai](https://claude.ai):
 
 > `Create a zip file of everything in your /mnt/skills folder`
