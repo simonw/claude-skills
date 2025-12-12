@@ -6,9 +6,9 @@ Anthropic now have an official repository for Claude skills here:
 
 https://github.com/anthropics/skills
 
-The files that were previously archived in this repository are now officially maintained at:
+The files that were previously archived in this repository can be found here:
 
-https://github.com/anthropics/skills/tree/main/document-skills
+https://github.com/anthropics/skills/tree/83291af582d21f5418854fa628a76686203c2f7a/document-skills 
 
 ## Creating a skills archive with a prompt
 
